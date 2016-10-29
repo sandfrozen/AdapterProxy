@@ -31,6 +31,7 @@ public class AdapterProxy {
      */
     public static void main(String[] args) {
         final Baza dane = new Baza();
+        AdapterTableModel adapter = new AdapterTableModel(0);
 
         final JFrame frame = new JFrame("Zadanie 4");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,7 +43,7 @@ public class AdapterProxy {
         scrollPane.setBorder(BorderFactory.createTitledBorder(" Tablice: "));
         splitPane.setLeftComponent(scrollPane);
 
-        JTable table = new JTable(/* ... tutaj dodaj adapter: TableModel ... */);
+        JTable table = new JTable(adapter);
         scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createTitledBorder(" Zawartość: "));
         splitPane.setRightComponent(scrollPane);
@@ -94,7 +95,8 @@ public class AdapterProxy {
             public void valueChanged(ListSelectionEvent e) {
                 int idx = list.getSelectedIndex();
                 if (idx >= 0) {
-                    /* ... */
+                    //obiekt adaptera staje sie tym na co klikam z lewej strony -> po prawej pojawia sie zawartosc
+                    adapter.setData((Data) dane.getElementAt(idx));
                 }
             }
         });

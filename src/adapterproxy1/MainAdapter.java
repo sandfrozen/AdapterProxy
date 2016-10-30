@@ -24,7 +24,7 @@ import javax.swing.event.ListSelectionListener;
  *
  * @author A5US
  */
-public class AdapterProxy {
+public class MainAdapter {
 
     /**
      * @param args the command line arguments

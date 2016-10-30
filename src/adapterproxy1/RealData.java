@@ -11,7 +11,7 @@ package adapterproxy1;
  */
 public class RealData implements Data {
 
-    int tab[];
+    private int tab[];
 
     public RealData(int size) {
         tab = new int[size];
@@ -30,6 +30,12 @@ public class RealData implements Data {
     @Override
     public int size() {
         return tab.length;
+    }
+    
+    @Override
+    public boolean isEmpty(){
+        //zwraca true jesli tab==null
+        return tab==null;
     }
 
 }

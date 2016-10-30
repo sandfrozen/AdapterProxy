@@ -44,6 +44,7 @@ public class AdapterTableModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
         data.set(rowIndex, Integer.parseInt(aValue.toString()));
+        fireTableStructureChanged();
     }
 
     @Override
@@ -51,7 +52,7 @@ public class AdapterTableModel extends AbstractTableModel {
         //return columnIndex!=0 ? true : false;
         //dla kolumny == 0 zwraca "false" - nie mozna edytowac
         //dla kolumny == 1 zwraca "true"  - mozna edytowac
-        return columnIndex!=0;
+        return columnIndex==1;
     }
 
     @Override
@@ -64,7 +65,13 @@ public class AdapterTableModel extends AbstractTableModel {
         //return super.getColumnName(column); //To change body of generated methods, choose Tools | Templates.
         //dla kolumny == 0 zwraca napis "index"
         //dla kolumny == 1 zwraca napis "wartość"
-        return column==0 ? "index" : "wartość";
+        return column==0 ? "index" : (data.isEmpty() ? "to jest proxy" : "wartość");
+        //
+    }
+
+    void clean() {
+        this.data = new RealData(0);
+        fireTableStructureChanged();
     }
 
 }

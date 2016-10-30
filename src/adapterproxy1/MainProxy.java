@@ -19,16 +19,16 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableModel;
 
 /**
  *
  * @author A5US
  */
-public class Proxy {
+public class MainProxy {
     public static void main(String[] args) {
         final Baza dane = new Baza();
-        //AdapterTableModel adapter = new AdapterTableModel(0);
-        ProxyVirtualLeniva proxy = new ProxyVirtualLeniva(0);
+        final AdapterTableModel adapter = new AdapterTableModel(0);
 
         final JFrame frame = new JFrame("Zadanie 4");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,8 +40,7 @@ public class Proxy {
         scrollPane.setBorder(BorderFactory.createTitledBorder(" Tablice: "));
         splitPane.setLeftComponent(scrollPane);
 
-        //JTable table = new JTable(adapter);
-        JTable table = new JTable(proxy);
+        JTable table = new JTable(adapter);
         scrollPane = new JScrollPane(table);
         scrollPane.setBorder(BorderFactory.createTitledBorder(" Zawartość: "));
         splitPane.setRightComponent(scrollPane);
@@ -72,7 +71,7 @@ public class Proxy {
                 try {
                     int size = Integer.parseInt(value);
                                                             //Tworzenie RealData
-                    dane.add((Data) new ProxyVirtualLeniva(size));
+                    dane.add(new ProxyVirtualData(size));
                 } catch (Exception ex) {
                 };
             }
@@ -83,6 +82,7 @@ public class Proxy {
                 int idx = list.getSelectedIndex();
                 try {
                     dane.remove(idx);
+                    adapter.clean();
                 } catch (Exception ex) {
                 };
             }
@@ -94,9 +94,8 @@ public class Proxy {
                 int idx = list.getSelectedIndex();
                 if (idx >= 0) {
                     //obiekt adaptera staje sie tym na co klikam z lewej strony -> po prawej pojawia sie zawartosc
-                    //adapter.setData((Data) dane.getElementAt(idx));
+                    adapter.setData((Data) dane.getElementAt(idx));
                     
-                    proxy.setData( ((Data)dane.getElementAt(idx)).size() );
                 }
             }
         });

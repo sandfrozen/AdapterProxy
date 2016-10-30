@@ -16,4 +16,6 @@ interface Data {
     public void set(int idx, int value);
 
     public int size();
+    
+    public boolean isEmpty();
 }

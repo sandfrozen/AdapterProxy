@@ -5,6 +5,8 @@
  */
 package adapterproxy1;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author A5US
@@ -13,13 +15,9 @@ public class RealData implements Data {
 
     private int tab[];
 
-    public RealData(int size) {
-        tab = new int[size];
-    }
 
-    @Override
-    public int get(int idx) {
-        return tab[idx];
+    public RealData(int size) {
+        this.tab = new int[size];
     }
 
     @Override
@@ -28,14 +26,19 @@ public class RealData implements Data {
     }
 
     @Override
+    public int get(int idx) {
+        return tab[idx];
+    }
+
+    @Override
     public int size() {
         return tab.length;
     }
-    
+
     @Override
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         //zwraca true jesli tab==null
-        return tab==null;
+        return tab == null;
     }
 
 }

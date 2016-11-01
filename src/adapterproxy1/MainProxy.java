@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package adapterproxy1;
 
 import java.awt.event.ActionEvent;
@@ -26,6 +21,7 @@ import javax.swing.table.TableModel;
  * @author A5US
  */
 public class MainProxy {
+
     public static void main(String[] args) {
         final Baza dane = new Baza();
         final AdapterTableModel adapter = new AdapterTableModel(0);
@@ -50,8 +46,10 @@ public class MainProxy {
         JMenuBar bar = new JMenuBar();
         JButton add = new JButton("Dodaj tablicę");
         JButton del = new JButton("Usuń tablicę");
+        JButton cop = new JButton("Skopiuj tablicę");
         bar.add(add);
         bar.add(del);
+        bar.add(cop);
 
         frame.setJMenuBar(bar);
 
@@ -70,7 +68,7 @@ public class MainProxy {
                         JOptionPane.INFORMATION_MESSAGE);
                 try {
                     int size = Integer.parseInt(value);
-                                                            //Tworzenie RealData
+                    //Tworzenie RealData
                     dane.add(new ProxyVirtualData(size));
                 } catch (Exception ex) {
                 };
@@ -87,6 +85,14 @@ public class MainProxy {
                 };
             }
         });
+        cop.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int idx = list.getSelectedIndex();
+                dane.add( ((ProxyVirtualData)(dane.getElementAt(idx))).kopia() );
+            }
+        });
 
         // zmiana wyboru na liście powoduje odświeżenie tabeli
         list.addListSelectionListener(new ListSelectionListener() {
@@ -95,7 +101,7 @@ public class MainProxy {
                 if (idx >= 0) {
                     //obiekt adaptera staje sie tym na co klikam z lewej strony -> po prawej pojawia sie zawartosc
                     adapter.setData((Data) dane.getElementAt(idx));
-                    
+
                 }
             }
         });

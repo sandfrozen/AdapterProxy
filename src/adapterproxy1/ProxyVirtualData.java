@@ -5,18 +5,34 @@
  */
 package adapterproxy1;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author A5US
  */
 public class ProxyVirtualData implements Data {
 
-    private RealData data;
+    private Data data;
     private int size;
+    private LinkedList<KopiaProxyVirtualData> kopie = new LinkedList<KopiaProxyVirtualData>();
 
     public ProxyVirtualData(int size) {
         this.data = null;
         this.size = size;
+    }
+
+    public void odlaczKopie() {
+        for (KopiaProxyVirtualData kopia : kopie) {
+            kopia.kopiuj();
+        }
+        kopie.clear();
+    }
+
+    public Data kopia() {
+        KopiaProxyVirtualData kopia = new KopiaProxyVirtualData(this);
+        kopie.addLast(kopia);
+        return kopia;
     }
 
     @Override
@@ -26,11 +42,12 @@ public class ProxyVirtualData implements Data {
 
     @Override
     public void set(int idx, int value) {
-        if( data == null ){
-            System.out.println("Bylo proxy, stworzenie obkietu size: " + size);
+        if (!kopie.isEmpty()) {
+            odlaczKopie();
+        }
+        if (data == null) {
+            System.out.println("Bylo proxy, stworzenie obiektu o rozmiarze: " + size);
             this.data = new RealData(size);
-        } else{
-            System.out.println("Bylo juz obiekt size: " + size);
         }
         this.data.set(idx, value);
     }
@@ -42,8 +59,6 @@ public class ProxyVirtualData implements Data {
 
     @Override
     public boolean isEmpty() {
-        //return this.data==null ? false : true;
         return this.data == null;
     }
-
 }

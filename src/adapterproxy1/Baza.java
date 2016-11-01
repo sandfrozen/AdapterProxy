@@ -14,7 +14,7 @@ import javax.swing.AbstractListModel;
  */
 class Baza extends AbstractListModel {
 
-    private ArrayList<Data> ar = new ArrayList<Data>();
+    private ArrayList<Data> ar = new ArrayList<>();
     
     public void add(Data tab) {
         ar.add(tab);

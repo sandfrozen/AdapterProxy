@@ -18,4 +18,5 @@ interface Data {
     public int size();
     
     public boolean isEmpty();
+    
 }

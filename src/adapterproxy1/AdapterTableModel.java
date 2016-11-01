@@ -5,6 +5,7 @@
  */
 package adapterproxy1;
 
+
 import javax.swing.table.AbstractTableModel;
 
 /**

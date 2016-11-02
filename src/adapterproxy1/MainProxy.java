@@ -90,7 +90,12 @@ public class MainProxy {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int idx = list.getSelectedIndex();
-                dane.add( ((ProxyVirtualData)(dane.getElementAt(idx))).kopia() );
+                try {
+                    dane.add(((ProxyVirtualData) (dane.getElementAt(idx))).kopia());
+                } catch (Exception ex) {
+                    System.out.println("Nie mozna stworzyc kopii kopii, ex: " + ex.toString());
+                };
+
             }
         });
 
